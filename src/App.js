@@ -1,22 +1,48 @@
 import logo from './logo.svg';
 import './App.css';
+import { useEffect, useState } from 'react';
 
 function App() {
+  const [task, setTask] = useState("");
+  const [tasks, setTasks] = useState([]);
+
+  // useEffect(() => { //thực hiện sau đoạn code khi giá trị State thay đổi
+  //   console.log('Task đã thay đổi: ',task)
+  // }, [task]);
+
+  const addTask = () => {
+    console.log('Add task: ',task);
+    setTasks([...tasks, task])
+    setTask("");
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <br />
+        Todo List
+        <br />
+        <form className='aligned'>
+          <img
+            src='./assests/add_plus_icon.png'
+            alt='Add Task'
+            width='25'
+            style={{cursor: 'pointer'}}
+            title='Add task'
+            onClick={addTask}
+          />
+          <input
+            type='text'
+            value={task}
+            onChange={(e) => setTask(e.target.value)}
+          />
+        </form>
+        <br/>
+        <ul>
+          {tasks.map((t,index) => (
+            <li key={index} className='taskItem'>{t}</li>
+          ))}
+        </ul>
       </header>
     </div>
   );
